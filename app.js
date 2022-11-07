@@ -14,7 +14,7 @@ const user=require('./models/user')
 app.use(cors());
 
 // app.use(bodyParser.urlencoded({extended:false}));//thsi is for handling forms 
-app.use(bodyParser.json());  //this is for handling jsons
+app.use(express.json());  //this is for handling jsons
 
 app.use(userRoutes);
 
