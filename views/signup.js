@@ -10,6 +10,7 @@ function signup(e) {
     .post("http://localhost:3000/signup", signUpDetails)
     .then((response) => {
       console.log(response);
+      window.location='login.html';
     })
     .catch((err) => {
       console.log(err);
