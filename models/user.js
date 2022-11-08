@@ -17,4 +17,4 @@ const ExpenseUser = sequelize.define('ExpenseUser',{
     password:Sequelize.STRING
 })
 
-module.exports = ExpenseUser
+module.exports = ExpenseUser;

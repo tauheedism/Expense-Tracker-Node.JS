@@ -8,7 +8,8 @@ function login(e){
     console.log(loginDetails);
     axios.post('http://localhost:3000/login',loginDetails)
     .then((response)=>{
-        alert(response.data.message)
+        alert(response.data.message);
+        window.location="expense.html"
     })
     .catch(err=>{
         console.log(JSON.stringify(err))

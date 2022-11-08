@@ -1,5 +1,4 @@
 const User = require("../models/user");
-
 const bcrypt = require("bcrypt");
 
 function stringValidator(string) {
@@ -105,3 +104,6 @@ exports.login = (req, res) => {
 //       res.status(404).json({message:"User does not exist",err})
 //   }
 // }
+
+
+

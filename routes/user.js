@@ -8,9 +8,4 @@ router.post('/signup',userController.signup);
 
 router.post('/login',userController.login);
 
-// router.post('/addexpenses',userController.signup);
-
-
-
-
 module.exports= router ;
