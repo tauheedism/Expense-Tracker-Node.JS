@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const jwt=require('jsonwebtoken')
 
 function stringValidator(string) {
   if (string == undefined || string.length === 0) {
@@ -7,6 +8,10 @@ function stringValidator(string) {
   } else {
     return false;
   }
+}
+
+function generateAccessToken(id,name){
+  return jwt.sign({ExpenseUserId:id,name:name},'tauheed615adil02sohail12farhan22')
 }
 
 exports.signup = async (req, res) => {
@@ -50,7 +55,7 @@ exports.login = (req, res) => {
           if (result===true) {
             res
               .status(200)
-              .json({ success: true, message: "User login successfully" });
+              .json({ success: true, message: "User login successfully" ,token:generateAccessToken(user[0].id,user[0].name) });
           } else {
             return res
               .status(400)

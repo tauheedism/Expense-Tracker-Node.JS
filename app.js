@@ -12,7 +12,8 @@ const expenseRoutes=require('./routes/expense')
 
 const app = express();
 
-const user=require('./models/user')
+const User=require('./models/user');
+const Expense=require('./models/expenseAdd')
 
 app.use(cors());
 
@@ -21,6 +22,10 @@ app.use(bodyParser.json());  //this is for handling jsons
 
 app.use(userRoutes);
 app.use(expenseRoutes);
+
+//Associations
+User.hasMany(Expense);
+Expense.belongsTo(User);
 
 sequelize
   // .sync({ force: true })
