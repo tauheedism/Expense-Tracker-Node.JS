@@ -1,3 +1,4 @@
+const token = localStorage.getItem("token");
 const btn = document.getElementById("button");
 btn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -11,9 +12,11 @@ btn.addEventListener("click", (e) => {
     categ: categ.value,
   };
   console.log(obj);
-  const token=localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   axios
-    .post("http://localhost:3000/addExpenses",obj, {headers:{"Authorization":token}})
+    .post("http://localhost:3000/addExpenses", obj, {
+      headers: { Authorization: token },
+    })
     .then((response) => {
       showListofRegisteredUser(response.data.data);
       console.log(response);
@@ -42,9 +45,11 @@ function showListofRegisteredUser(user) {
 }
 window.addEventListener("DOMContentLoaded", (e) => {
   e.preventDefault();
-  const token=localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   axios
-    .get("http://localhost:3000/getExpenses",{headers:{'Authorization':token}})
+    .get("http://localhost:3000/getExpenses", {
+      headers: { Authorization: token },
+    })
     .then((response) => {
       console.log(response.data);
       for (let i = 0; i < response.data.response.length; i++) {
@@ -70,9 +75,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
 });
 
 function deleteUser(userid) {
-    const token=localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   axios
-    .delete(`http://localhost:3000/del/${userid}`,{headers:{'Authorization':token}})
+    .delete(`http://localhost:3000/del/${userid}`, {
+      headers: { Authorization: token },
+    })
 
     .then((response) => removeItemFromScreen(userid))
     // console.log(response))
@@ -92,3 +99,56 @@ function EditUser(name, des, categ, id) {
 
   deleteUser(id);
 }
+
+document.getElementById("rzp-button1").onclick = async function (e) {
+  const response = await axios.get(
+    "http://localhost:3000/purchase/premiummembership",
+    { headers: { Authorization: token } }
+  );
+  console.log(response);
+  var options = {
+    key: response.data.key_id, // Enter the Key ID generated from the Dashboard
+    name: "Test Company",
+    order_id: response.data.order.id, // For one time payment
+    prefill: {
+      name: "Test User",
+      email: "test.user@example.com",
+      contact: "7003442036",
+    },
+    theme: {
+      color: "#3399cc",
+    },
+    // This handler function will handle the success payment
+    handler: function (response) {
+      console.log(response);
+      axios
+        .post(
+          "http://localhost:3000/purchase/updatetransactionstatus",
+          {
+            order_id: options.order_id,
+            payment_id: response.razorpay_payment_id,
+          },
+          { headers: { Authorization: token } }
+        )
+        .then(() => {
+          alert("You are a Premium User Now");
+        })
+        .catch(() => {
+          alert("Something went wrong. Try Again!!!");
+        });
+    },
+  };
+  const rzp1 = new Razorpay(options);
+  rzp1.open();
+  e.preventDefault();
+
+  rzp1.on("payment.failed", function (response) {
+    alert(response.error.code);
+    alert(response.error.description);
+    alert(response.error.source);
+    alert(response.error.step);
+    alert(response.error.reason);
+    alert(response.error.metadata.order_id);
+    alert(response.error.metadata.payment_id);
+  });
+};

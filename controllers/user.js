@@ -45,7 +45,7 @@ exports.login = (req, res) => {
       .json({ message: "Email-Id or password is missing", success: false });
   }
   console.log(password);
-  User.findAll({ where: { email } })
+  User.findAll({ where: { email:email } })
     .then((user) => {
       if (user.length > 0) {
         bcrypt.compare(password,user[0].password,(err,result)=>{
