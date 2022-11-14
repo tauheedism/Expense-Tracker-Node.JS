@@ -1,5 +1,6 @@
 const { response } = require("express");
 const Expense = require("../models/expenseAdd");
+const User=require("../models/user");
 
 
 exports.addExpenses =((req,res,next)=>{
@@ -36,3 +37,24 @@ exports.addExpenses =((req,res,next)=>{
     return res.status(200).json({success:true,message:'successful'})})
       .catch(err=>{console.log(err)})
   }
+
+  exports.getAllUsers = (req,res)=>{
+    User.findAll()
+     .then(result=>{
+       return res.status(201).json({success:true , data:result})
+     })
+     .catch(err =>{
+       return res.status(500).json({success:false , message:"failed"})
+     })
+}
+
+exports.getAllExpenses = (req,res)=>{
+   const userid = req.params.id
+   Expense.findAll({where:{ExpenseUserId:userid}})
+   .then(result=>{
+       return res.status(201).json({success:true , data:result})
+   })
+   .catch(err =>{
+       return res.status(500).json({success:false , data:err})
+   })
+}

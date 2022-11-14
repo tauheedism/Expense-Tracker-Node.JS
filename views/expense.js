@@ -152,3 +152,9 @@ document.getElementById("rzp-button1").onclick = async function (e) {
     alert(response.error.metadata.payment_id);
   });
 };
+const leaderBoard=document.getElementById('leader');
+leaderBoard.addEventListener('click',()=>{
+  if (confirm('Are you sure')) {
+    window.location='leaderBoard.html';
+  }
+})

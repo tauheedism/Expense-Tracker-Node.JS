@@ -12,6 +12,10 @@ router.get('/getExpenses',userAuthentication.authentication ,expenseController.g
 
 router.delete('/del/:id',userAuthentication.authentication,expenseController.delete);
 
+router.get('/AllUsers',userAuthentication.authentication,expenseController.getAllUsers)
+
+router.get('/AllExpense/:id',expenseController.getAllExpenses);
+
 
 
 module.exports= router ;
