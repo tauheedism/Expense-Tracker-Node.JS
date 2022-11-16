@@ -8,8 +8,6 @@ window.addEventListener('DOMContentLoaded',() =>{
         {
             let email = result.data.data[i].email;
             let id = result.data.data[i].id;
-            console.log(id);
-
             console.log(email);
            leaderboard.innerHTML+= `<div>${email} <button onclick="getExpenses(${id})">Details</button></div>`
         }
@@ -29,9 +27,9 @@ function getExpenses(id)
         for(let i=0;i<result.data.data.length;i++)
         {
             let expense = result.data.data[i].name;
-            let description = result.data.data[i].des
+            let description = result.data.data[i].des;
             let category = result.data.data[i].categ;
-            leaderboard.innerHTML+= `<div> ${email} <button onclick="getExpenses(${id})">Details</button></div>`
+            container += `<div> Expense=${expense}----Description=${description}-----category=${category} </div>`
 
         }
         details.innerHTML = container

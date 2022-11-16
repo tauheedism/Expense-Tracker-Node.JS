@@ -15,10 +15,4 @@ function signup(e) {
     .catch((err) => {
       console.log(err);
     });
-  // if (response.status===200) {
-  //     window.location.href='../Login/login.html';
-  // }
-  // else{
-  //     throw new Error('Failed to login')
-  // }
-}
+  }

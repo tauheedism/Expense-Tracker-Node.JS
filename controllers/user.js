@@ -29,7 +29,7 @@ exports.signup = async (req, res) => {
     const saltrounds = 10;
     bcrypt.hash(password, saltrounds, async (err, hash) => {
       console.log(err);
-      await User.create({ name, email, password:hash });
+      await User.create({ name, email, password:hash, premiumuser:false});
       res.status(201).json({ message: "successfully created new user" });
     });
   } catch (error) {

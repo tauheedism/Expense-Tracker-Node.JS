@@ -1,7 +1,8 @@
 const { response } = require("express");
 const Expense = require("../models/expenseAdd");
 const User=require("../models/user");
-
+const Sequelize=require('sequelize');
+const op = Sequelize.Op;
 
 exports.addExpenses =((req,res,next)=>{
     const{name,des,categ}=req.body
@@ -20,13 +21,13 @@ exports.addExpenses =((req,res,next)=>{
     Expense.findAll({where:{ExpenseUserId:req.user.id}})
     // req.user.getExpenses()
   .then(response=>{
-   return res.status(200).json({response,success:true})
+   return res.status(200).json({response,user:req.user})
   })
   .catch(err=>{
     return res.status(500).json({err,success:false})})
   }
   
-  exports.delete=(req,res,next)=>{
+  exports.deleteDetails=(req,res,next)=>{
   const id = req.params.id;
   // Expense.destroy({where:{id:id}})
   Expense.destroy({where:{id:id,ExpenseUserId:req.user.id}})

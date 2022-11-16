@@ -10,7 +10,7 @@ router.post('/addExpenses',userAuthentication.authentication ,expenseController.
 
 router.get('/getExpenses',userAuthentication.authentication ,expenseController.getExpenses);
 
-router.delete('/del/:id',userAuthentication.authentication,expenseController.delete);
+router.delete('/del/:id',userAuthentication.authentication,expenseController.deleteDetails);
 
 router.get('/AllUsers',userAuthentication.authentication,expenseController.getAllUsers)
 

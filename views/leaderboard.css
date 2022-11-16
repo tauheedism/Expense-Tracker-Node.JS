@@ -1,0 +1,53 @@
+body{
+    color: aliceblue;
+    background-color: rgb(155, 48, 48);
+
+}
+
+.leader-section{
+    display: flex;
+    flex-direction:row;
+}
+
+.image
+{
+    margin: 40px;
+}
+
+.usersdata
+{
+ margin: 20px;
+}
+
+h1{
+    margin-left: 350px;
+    font-size: 40px;
+}
+
+
+#lb{
+    color:bisque;
+    font-size: larger;
+    margin: 50px 250px;
+}
+
+#details
+{
+    color: rgba(132, 156, 148, 0.552);
+    font-size: larger;
+}
+
+#details
+{
+    color:azure;
+    font-size: large;
+    margin: 100px 200px;
+}
+
+.backbtn
+{
+  color:black;
+  background-color: bisque;
+  font-size: xx-large;
+  margin: 10px;
+}
