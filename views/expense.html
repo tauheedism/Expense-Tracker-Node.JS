@@ -21,11 +21,17 @@
         <title>Add Expense</title>
         <link rel="stylesheet" type="text/css" href="expense.css" />
       </head>
-  <body>
+  <body id="body">
     <div class="container">
-      <button type="button" id="rzp-button1" class="btn btn-primary float-left">Buy Premium</button>
-      <button type="button" id="logout" class="btn btn-primary float-right">Logout</button>
-      <button type="button" id="leader" class="btn btn-primary float-right">Leader Board</button>
+      <ul id='leaderReport'>
+
+      </ul>
+      <div>
+        <button type="button" id="rzp-button1" class="btn btn-primary float-left">Buy Premium</button>
+      </div>
+      <a href="login.html" id="logout" class="float-right">Logout</a>
+      <!-- <button type="button" id="leader" class="btn btn-primary float-right">Leader Board</button> -->
+      <!-- <a href="report.html">Report</a> -->
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div class="box">
@@ -37,7 +43,9 @@
                     <div class="shape6"></div>
                     <div class="shape7"></div>
                     <div class="float">
-                        <form class="form" action="">
+                        <!-- <form class="form" onsubmit="expenseAdd(e)"> -->
+                          
+                          <form class="form">
                             <div class="form-group">
                                 <label for="username" class="text-white">Choose ExpanseAmount:</label><br>
                                 <input type="text" name="name" id="name" class="form-control">
@@ -58,21 +66,24 @@
                             </div>
                             <div class="form-group">
                                 <button
-                                  id="button"
+                                  id="buttonAdd"
                                   type="submit"
-                                  class="btn btn-success float-right signup_btn"
+                                  class="btn float-right signup_btn"
                                 >
                                 <a href="#">Add Expense</a>
                                 </button>
                             </div>
                         </form>
+                        <br><br>
                         <ul id='userlist'>
 
                         </ul>
+
+                        <div class="pagination" id="pagination">
+        
+                        </div>
                         
-                        <br><br>
-                        
-                        <button onclick="download()" class="btn btn-primary" id="downloadexpense">Download File</button>
+                        <br><br>                        
                     </div>
                 </div>
             </div>

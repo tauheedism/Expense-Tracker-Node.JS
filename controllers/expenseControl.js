@@ -59,3 +59,48 @@ exports.getAllExpenses = (req,res)=>{
        return res.status(500).json({success:false , data:err})
    })
 }
+
+exports.getDailyExpense = (req,res)=>{
+  const todayDate = new Date().setHours(0,0,0,0)
+  const Now = new Date();
+
+  const userid = req.user.id;
+  Expense.findAll({where:{ExpenseUserId:userid , createdAt:{[op.gt]:todayDate,[op.lt]:Now}}})
+  .then(result =>{
+    res.status(201).json(result)
+  })
+  .catch(err =>{
+    res.status(500).json(err)
+  })
+
+}
+
+
+exports.weeklyExpense = (req,res)=>{
+    const todayDate = new Date().getDate()
+    const weeklyExpense = new Date().setDate(todayDate-7)
+    const Now = new Date();
+
+    const userid = req.user.id;
+    Expense.findAll({where:{ExpenseUserId:userid , createdAt:{[op.gt]:weeklyExpense,[op.lt]:Now}}})
+    .then(result =>{
+      res.status(201).json(result)
+    })
+    .catch(err =>{
+      res.status(500).json(err)
+    })
+
+}
+
+// exports.getIndexPagination = (req, res, next) => {
+//   let page = Number(req.query.page);
+//   let Limit = 10;
+
+//     Expense.findAll({limit:10,offset:Limit*page})
+//       .then(expense => {
+//         res.json({expense , success:true}) 
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+// };

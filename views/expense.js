@@ -1,5 +1,5 @@
 const token = localStorage.getItem("token");
-const btn = document.getElementById("button");
+const btn = document.getElementById("buttonAdd");
 btn.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("hello");
@@ -26,9 +26,6 @@ btn.addEventListener("click", (e) => {
         document.body.innerHTML + "<h4>something went wrong </h4>";
       console.log(err);
     });
-  //localStorage.setItem(obj.description,JSON.stringify(obj))
-
-  //clear fields
   name.value = "";
   des.value = "";
   categ.value = "";
@@ -43,7 +40,7 @@ function showListofRegisteredUser(user) {
   parentNode.innerHTML = parentNode.innerHTML + createNewUserHtml;
   console.log(parentNode.innerHTML);
 }
-window.addEventListener("load", (e) => {
+window.addEventListener("DOMContentLoaded", (e) => {
   e.preventDefault();
   const token = localStorage.getItem("token");
   axios
@@ -51,7 +48,31 @@ window.addEventListener("load", (e) => {
       headers: { Authorization: token },
     })
     .then((response) => {
-      console.log(response.data);
+      if (response.data.user.premiumuser == true) {
+        document.getElementById("body").classList.add("premium");
+        document.getElementById("logout").classList.add("premium");
+        document.getElementById("buttonAdd").classList.add("premium");
+        document.getElementById("rzp-button1").classList.add("premium");
+        const leaderReportParent = document.getElementById("leaderReport");
+        const lbRprt = `<li>
+                            <a href='leaderboard.html' id="leader" class="btn btn-primary float-right">Leaderboard</a>
+                            <a href='report.html' id="report" class="btn btn-primary float-left">Report</a>
+                       </li>`;
+        leaderReportParent.innerHTML = leaderReportParent.innerHTML + lbRprt;
+        document.getElementById("rzp-button1").remove();
+        const logout = document.getElementById("logout");
+        logout.addEventListener("click", () => {
+          if (confirm("ARE U SURE")) {
+            window.location = "login.html";
+          }
+        });
+        const leaderBoard = document.getElementById("leader");
+        leaderBoard.addEventListener("click", () => {
+          if (confirm("Are you sure")) {
+            window.location = "leaderboard.html";
+          }
+        });
+      }
       for (let i = 0; i < response.data.response.length; i++) {
         let name = response.data.response[i].name;
         let des = response.data.response[i].des;
@@ -60,13 +81,11 @@ window.addEventListener("load", (e) => {
 
         const parentNode = document.getElementById("userlist");
         const createNewUserHtml = `<li id='${id}'>${name} - ${des} - ${categ}
-                                        <button onclick=deleteUser('${id}')>Delete</button>
-                                        <button onclick=EditUser('${name}','${des}','${categ}','${id}')>Edit</button>
+                                        <button class="btn btn-primary" onclick=deleteUser('${id}')>Delete</button>
+                                        <button class="btn btn-primary" onclick=EditUser('${name}','${des}','${categ}','${id}')>Edit</button>
                                     </li>`;
-        //console.log(createNewUserHtml)
+
         parentNode.innerHTML = parentNode.innerHTML + createNewUserHtml;
-        //  console.log(parentNode.innerHTML)
-        // console.log();
       }
     })
     .catch((err) => {
@@ -111,9 +130,9 @@ document.getElementById("rzp-button1").onclick = async function (e) {
     name: "Test Company",
     order_id: response.data.order.id, // For one time payment
     prefill: {
-      name: "Test User",
-      email: "test.user@example.com",
-      contact: "7003442036",
+      name: "Tauheed",
+      email: "tauheedsiddiqui8760@gmail.com",
+      contact: "8077279723",
     },
     theme: {
       color: "#3399cc",
@@ -132,6 +151,29 @@ document.getElementById("rzp-button1").onclick = async function (e) {
         )
         .then(() => {
           alert("You are a Premium User Now");
+          document.getElementById("body").classList.add("premium");
+          document.getElementById("logout").classList.add("premium");
+          document.getElementById("buttonAdd").classList.add("premium");
+          document.getElementById("rzp-button1").classList.add("premium");
+          const leaderReportParent = document.getElementById("leaderReport");
+          const lbRprt = `<li>
+                            <a href='leaderboard.html' id="leader" class="btn btn-primary float-right">Leaderboard</a>
+                            <a href='report.html' id="report" class="btn btn-primary float-left">Report</a>
+                       </li>`;
+          leaderReportParent.innerHTML = parentNode.innerHTML + lbRprt;
+          document.getElementById("rzp-button1").remove();
+          const logout = document.getElementById("logout");
+          logout.addEventListener("click", () => {
+            if (confirm("ARE U SURE")) {
+              window.location = "login.html";
+            }
+          });
+          const leaderBoard = document.getElementById("leader");
+          leaderBoard.addEventListener("click", () => {
+            if (confirm("Are you sure")) {
+              window.location = "leaderboard.html";
+            }
+          });
         })
         .catch(() => {
           alert("Something went wrong. Try Again!!!");
@@ -152,29 +194,56 @@ document.getElementById("rzp-button1").onclick = async function (e) {
     alert(response.error.metadata.payment_id);
   });
 };
-const leaderBoard=document.getElementById('leader');
-leaderBoard.addEventListener('click',()=>{
-  if (confirm('Are you sure')) {
-    window.location='leaderboard.html';
-  }
-})
 
-function download(){
-  axios.get('http://localhost:3000/user/download', { headers: {"Authorization" : token} })
-  .then((response) => {
-      if(response.status === 201){
-          //the bcakend is essentially sending a download link
-          //  which if we open in browser, the file would download
-          var a = document.createElement("a");
-          a.href = response.data.fileUrl;
-          a.download = 'myexpense.csv';
-          a.click();
-      } else {
-          throw new Error(response.data.message)
-      }
+// let p = 0;
+// let pp = 1;
+// let pag = document.getElementById('pagination');
 
-  })
-  .catch((err) => {
-      showError(err)
-  });
-}
+// function pagination(e) {
+//     axios.get("http://localhost:3000/getExpenses")
+//     .then((response)=>{
+//         console.log(response.data)
+//       let number_of_pages;
+//       if(response.data.user.length % 10 == 0) {
+//          number_of_pages = Math.trunc(((response.data.user.length)/10))
+//       } else {
+//          number_of_pages = Math.trunc(((response.data.user.length)/10)+1)
+//       }
+
+//       for (let i = 0; i < number_of_pages; i++) {
+//         pag.innerHTML += `<button class="pagebtn" id="?page=${p++}">${pp++}</button> `;
+//         console.log(pag)
+//       }
+//     })
+//     .catch(err=> NotifyUser(err))
+//   }
+
+//   pag.addEventListener('click', (e)=>{
+//     let id = e.target.id;
+//     console.log(id)
+//     axios.get(`http://localhost:3000/limited${id}`)
+//     .then(response=>{
+//         console.log(response.data.user)
+//       let products = response.data.user;
+//        let container="";
+//         let parent = document.getElementById("rows");
+//        for( let i =0;i<response.data.user.length;i++)
+//        {
+//         let name = response.data.response[i].name;
+//         let des = response.data.response[i].des;
+//         let categ = response.data.response[i].categ;
+//         let id = response.data.response[i].id;
+//          container+=` <div class="bag">
+//                  <h4 class="bag-title" >${name}</h4>
+//                <img src="${des}"  class="images" alt="" width="300px" height="300px">
+//                <div class="price-cart">
+//                       <h3 class="price">${categ}</h3>
+//                   <button type="button" class="addtocart" id="btn" onClick="addToCartClicked(${id})">ADD TO CART</button>
+//                 </div>
+//              </div>`
+//        }
+
+//         parent.innerHTML = container;
+//     })
+//     .catch(err=> console.log(err))
+//   })

@@ -16,6 +16,12 @@ router.get('/AllUsers',userAuthentication.authentication,expenseController.getAl
 
 router.get('/AllExpense/:id',expenseController.getAllExpenses);
 
+router.get('/getReport',userAuthentication.authentication,expenseController.getDailyExpense)
+
+router.get('/getWeeklyReport',userAuthentication.authentication,expenseController.weeklyExpense)
+
+// router.get('/limited', expenseController.getIndexPagination);
+
 
 
 module.exports= router ;
