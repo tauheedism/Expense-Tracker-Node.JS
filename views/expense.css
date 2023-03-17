@@ -88,7 +88,7 @@ body{
 
 #body.premium
 {
-    background-image: url(https://thumbs.dreamstime.com/z/beautiful-autumn-foliage-background-brunches-falling-tree-leaves-sky-bokeh-98280795.jpg);
+    background-image: url(https://media.istockphoto.com/id/157681198/photo/dandelion-seed.jpg?b=1&s=170667a&w=0&k=20&c=o8JhDhTWH6WeB2yXixZVwLy1HQ0tR01FKdQM6EIeX3g=);
      background-size: cover;
      background-repeat: no-repeat;
      background-attachment: fixed;
@@ -123,33 +123,3 @@ body{
    font-size: xx-large;
    color: #d9158e;
 } */
-
-#body.premium
-{
-    background-image: url(https://thumbs.dreamstime.com/z/beautiful-autumn-foliage-background-brunches-falling-tree-leaves-sky-bokeh-98280795.jpg);
-     background-size: cover;
-     background-repeat: no-repeat;
-     background-attachment: fixed;
-     background-position: center;
-     color: black;
- 
-}
-
-#logout.premium{
-    color: #4C0033;
-}
-
-#logout{
-    position: fixed;
-    top:20px;
-    right: 50px;
-    background: none;
-    font-size: x-large;
-}
-
-#Addbtn.premium
-{
-    background-color: black;
-    color: azure;
-    
-} 

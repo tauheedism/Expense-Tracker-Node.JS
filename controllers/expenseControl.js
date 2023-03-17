@@ -91,16 +91,3 @@ exports.weeklyExpense = (req,res)=>{
     })
 
 }
-
-// exports.getIndexPagination = (req, res, next) => {
-//   let page = Number(req.query.page);
-//   let Limit = 10;
-
-//     Expense.findAll({limit:10,offset:Limit*page})
-//       .then(expense => {
-//         res.json({expense , success:true}) 
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
-// };

@@ -30,16 +30,18 @@ btn.addEventListener("click", (e) => {
   des.value = "";
   categ.value = "";
 });
+
 function showListofRegisteredUser(user) {
   const parentNode = document.getElementById("userlist");
   const createNewUserHtml = `<li id='${user.id}'>${user.name} - ${user.des} - ${user.categ}
-                                        <button onclick=deleteUser('${user.id}')>Delete</button>
-                                        <button onclick=EditUser('${user.name}','${user.des}','${user.categ}','${user.id}')>Edit</button>
+                                        <button class="btn btn-primary" onclick=deleteUser('${user.id}')>Delete</button>
+                                        <button class="btn btn-primary" onclick=EditUser('${user.name}','${user.des}','${user.categ}','${user.id}')>Edit</button>
                                     </li>`;
-  console.log(createNewUserHtml);
+  // console.log(createNewUserHtml);
   parentNode.innerHTML = parentNode.innerHTML + createNewUserHtml;
   console.log(parentNode.innerHTML);
 }
+
 window.addEventListener("DOMContentLoaded", (e) => {
   e.preventDefault();
   const token = localStorage.getItem("token");
@@ -97,7 +99,7 @@ function deleteUser(userid) {
   const token = localStorage.getItem("token");
   axios
     .delete(`http://localhost:3000/del/${userid}`, {
-      headers: { Authorization: token },
+      headers: { "Authorization": token },
     })
 
     .then((response) => removeItemFromScreen(userid))
@@ -194,56 +196,3 @@ document.getElementById("rzp-button1").onclick = async function (e) {
     alert(response.error.metadata.payment_id);
   });
 };
-
-// let p = 0;
-// let pp = 1;
-// let pag = document.getElementById('pagination');
-
-// function pagination(e) {
-//     axios.get("http://localhost:3000/getExpenses")
-//     .then((response)=>{
-//         console.log(response.data)
-//       let number_of_pages;
-//       if(response.data.user.length % 10 == 0) {
-//          number_of_pages = Math.trunc(((response.data.user.length)/10))
-//       } else {
-//          number_of_pages = Math.trunc(((response.data.user.length)/10)+1)
-//       }
-
-//       for (let i = 0; i < number_of_pages; i++) {
-//         pag.innerHTML += `<button class="pagebtn" id="?page=${p++}">${pp++}</button> `;
-//         console.log(pag)
-//       }
-//     })
-//     .catch(err=> NotifyUser(err))
-//   }
-
-//   pag.addEventListener('click', (e)=>{
-//     let id = e.target.id;
-//     console.log(id)
-//     axios.get(`http://localhost:3000/limited${id}`)
-//     .then(response=>{
-//         console.log(response.data.user)
-//       let products = response.data.user;
-//        let container="";
-//         let parent = document.getElementById("rows");
-//        for( let i =0;i<response.data.user.length;i++)
-//        {
-//         let name = response.data.response[i].name;
-//         let des = response.data.response[i].des;
-//         let categ = response.data.response[i].categ;
-//         let id = response.data.response[i].id;
-//          container+=` <div class="bag">
-//                  <h4 class="bag-title" >${name}</h4>
-//                <img src="${des}"  class="images" alt="" width="300px" height="300px">
-//                <div class="price-cart">
-//                       <h3 class="price">${categ}</h3>
-//                   <button type="button" class="addtocart" id="btn" onClick="addToCartClicked(${id})">ADD TO CART</button>
-//                 </div>
-//              </div>`
-//        }
-
-//         parent.innerHTML = container;
-//     })
-//     .catch(err=> console.log(err))
-//   })

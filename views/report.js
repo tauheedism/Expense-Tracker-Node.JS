@@ -1,9 +1,8 @@
-const token = localStorage.getItem('token')
+const token = localStorage.getItem('token');
 
 window.addEventListener('DOMContentLoaded',()=>{
     axios.get("http://localhost:3000/getReport", {headers:{"Authorization":token}})
     .then(result=>{
-
         const dailyExpense = document.getElementById('dailyExpense')
         let container = "";
         for(let i =0;i<result.data.length;i++)
@@ -12,9 +11,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             let description = result.data[i].des;
             let expense = result.data[i].name;
 
-            container +=`<div> cateogory--${category}---description${description}---category${expense}--- </div>`
-
-
+            container +=`<div> expense:${expense}<==>description:${description}<==>category:${category}</div>`
         }
         dailyExpense.innerHTML = container;
     })
@@ -30,7 +27,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                 let description = result.data[i].des;
                 let expense = result.data[i].name;
 
-                container +=`<div> cateogory--${category}---description${description}---category${expense}--- </div>`
+                container +=`<div> expense:${expense}<==>description:${description}<==>category:${category}<br></div>`
 
 
             }

@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const jwt=require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 function stringValidator(string) {
   if (string == undefined || string.length === 0) {
@@ -10,8 +10,11 @@ function stringValidator(string) {
   }
 }
 
-function generateAccessToken(id,name){
-  return jwt.sign({ExpenseUserId:id,name:name},'tauheed615adil02sohail12farhan22')
+function generateAccessToken(id, name) {
+  return jwt.sign(
+    { ExpenseUserId: id, name: name },
+    "tauheed615adil02sohail12farhan22"
+  );
 }
 
 exports.signup = async (req, res) => {
@@ -29,7 +32,7 @@ exports.signup = async (req, res) => {
     const saltrounds = 10;
     bcrypt.hash(password, saltrounds, async (err, hash) => {
       console.log(err);
-      await User.create({ name, email, password:hash, premiumuser:false});
+      await User.create({ name, email, password: hash, premiumuser: false });
       res.status(201).json({ message: "successfully created new user" });
     });
   } catch (error) {
@@ -45,23 +48,29 @@ exports.login = (req, res) => {
       .json({ message: "Email-Id or password is missing", success: false });
   }
   console.log(password);
-  User.findAll({ where: { email:email } })
+  User.findAll({ where: { email: email } })
     .then((user) => {
       if (user.length > 0) {
-        bcrypt.compare(password,user[0].password,(err,result)=>{
+        bcrypt.compare(password, user[0].password, (err, result) => {
           if (err) {
-            res.status(500).json({success:false,message:'Something went wrong'})
+            res
+              .status(500)
+              .json({ success: false, message: "Something went wrong" });
           }
-          if (result===true) {
+          if (result === true) {
             res
               .status(200)
-              .json({ success: true, message: "User login successfully" ,token:generateAccessToken(user[0].id,user[0].name) });
+              .json({
+                success: true,
+                message: "User login successfully",
+                token: generateAccessToken(user[0].id, user[0].name),
+              });
           } else {
             return res
               .status(400)
               .json({ success: false, message: "Password is incorrect" });
           }
-        })
+        });
       } else {
         return res
           .status(404)
@@ -109,6 +118,3 @@ exports.login = (req, res) => {
 //       res.status(404).json({message:"User does not exist",err})
 //   }
 // }
-
-
-
